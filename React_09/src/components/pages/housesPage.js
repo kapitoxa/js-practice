@@ -26,7 +26,6 @@ export default class HousesPage extends Component {
 
     render() {
         const {selectedHouse, error} = this.state;
-        console.log('render house', selectedHouse);
         if (error) {
             return <ErrorMessage/>;
         }

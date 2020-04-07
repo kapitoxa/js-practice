@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import {ListGroup, ListGroupItem} from 'reactstrap';
+import PropTypes from 'prop-types';
 
 import Term from '../term';
 import GotService from '../../services/gotService';
@@ -26,6 +27,7 @@ export default class RandomChar extends Component {
         loading: true,
         error: false
     };
+
     gotService = new GotService();
 
     updateCharacter = () => {
@@ -51,7 +53,8 @@ export default class RandomChar extends Component {
 
     componentDidMount() {
         this.updateCharacter();
-        this.timerId = setInterval(this.updateCharacter, 10000);
+        const {interval} = this.props;
+        this.timerId = setInterval(this.updateCharacter, interval);
     }
 
     componentWillUnmount() {
@@ -72,6 +75,14 @@ export default class RandomChar extends Component {
         );
     }
 }
+
+RandomChar.defaultProps = {
+    interval: 15000
+};
+
+RandomChar.propTypes = {
+    interval: PropTypes.number
+};
 
 const CharacterInfo = ({char}) => {
     const {name, gender, born, died, culture} = char;
